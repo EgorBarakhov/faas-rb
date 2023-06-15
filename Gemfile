@@ -46,3 +46,9 @@ group :development do
   # gem "spring"
 end
 
+# All other gems
+
+gem "action_policy-graphql", "~> 0.5.3"
+gem "eth", "~> 0.5.10"
+gem "graphql", "~> 2.0"
+gem "uuidtools", "~> 2.2"

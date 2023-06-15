@@ -1,0 +1,8 @@
+en:
+  errors:
+    messages:
+      already_active: Record is already reinstated
+      already_archived: Record is already archived
+      invalid_credentials: Invalid credentials
+      invalid_record: Invalid record
+      not_found: Record not found

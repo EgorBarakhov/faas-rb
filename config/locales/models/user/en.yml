@@ -1,0 +1,10 @@
+en:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            eth_account:
+              invalid: isn't valid ETH address
+            nonce:
+              in_future: encodes timestamp in future
