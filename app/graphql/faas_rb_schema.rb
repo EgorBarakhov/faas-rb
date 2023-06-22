@@ -1,9 +1,32 @@
+# frozen_string_literal: true
+
 class FaasRbSchema < GraphQL::Schema
   mutation(Types::MutationType)
   query(Types::QueryType)
 
   # For batch-loading (see https://graphql-ruby.org/dataloader/overview.html)
   use GraphQL::Dataloader
+
+  max_depth 13
+  max_complexity 250
+
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    model_name = exception.message.match(/Couldn't find (\w+)/).to_a.last
+    error_message = I18n.t('errors.messages.not_found',
+      model: I18n.t("activerecord.models.#{model_name.downcase}")).squish.humanize
+
+    raise GraphQL::ExecutionError.new(error_message, extensions: { code: :record_not_found, status: 404 })
+  end
+
+  rescue_from ActionPolicy::Unauthorized do |exception|
+    raise GraphQL::ExecutionError.new(
+      exception.result.message,
+      extensions: {
+        code: :forbidden,
+        status: 403
+      }
+    )
+  end
 
   # GraphQL-Ruby calls this when something goes wrong while running a query:
   def self.type_error(err, context)

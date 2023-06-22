@@ -1,7 +1,6 @@
-Rails.application.routes.draw do
-  post "/graphql", to: "graphql#execute"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+# frozen_string_literal: true
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+Rails.application.routes.draw do
+  post '/graphql', to: 'graphql#execute'
+  post '/:contract_id/triggers/:trigger_id', to: 'trigger#execute'
 end

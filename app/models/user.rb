@@ -9,6 +9,12 @@ class User < ApplicationRecord
   validates :eth_account, presence: true, uniqueness: true, eth_address: true
   validates :nonce, nonce_in_past: true, allow_nil: true
 
+  def allowed_to_update_nonce?
+    return true if nonce.blank?
+
+    nonce_generated_at.before?(Time.zone.now - NONCE_REGENERATION)
+  end
+
   def nonce_generated_at
     return nil if nonce.blank?
 

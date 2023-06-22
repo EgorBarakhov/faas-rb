@@ -5,4 +5,4 @@ en:
       already_archived: Record is already archived
       invalid_credentials: Invalid credentials
       invalid_record: Invalid record
-      not_found: Record not found
+      not_found: Record %{model} not found
